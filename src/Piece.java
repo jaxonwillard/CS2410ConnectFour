@@ -7,9 +7,9 @@ public class Piece {
     public Circle circle;
     private int i;
     private int j;
-    connectFourGrid grid;
+    ConnectFourGrid grid;
 
-    public Piece(boolean isEmpty, Player player, int radius, int xCoord, int yCoord, int i, int j, connectFourGrid grid) {
+    public Piece(boolean isEmpty, Player player, int radius, int xCoord, int yCoord, int i, int j, ConnectFourGrid grid) {
         this.grid = grid;
         this.i = i;
         this.j = j;
@@ -22,24 +22,26 @@ public class Piece {
         if (isEmpty) circle.setFill(Color.TRANSPARENT);
 
         circle.setOnMouseClicked(e -> {
-            if (isEmpty) {
+            if (isEmpty && !grid.gameOver) {
                 System.out.println("i: " + i);
                 int bottom = grid.putToBottom(i, j);
                 if (grid.isP1Turn) {
-                    this.player = grid.player1;
-                    grid.connectFourGrid[i][bottom].populatePiece(grid.player1);
-                } else {
-                    grid.connectFourGrid[i][bottom].populatePiece(grid.player2);
-                    this.player = grid.player2;
+                    grid.ConnectFourGrid[i][bottom].player = grid.player1;
+                    grid.ConnectFourGrid[i][bottom].populatePiece(grid.player1);
                 }
+
+                else {
+                    grid.ConnectFourGrid[i][bottom].player = grid.player2;
+                    grid.ConnectFourGrid[i][bottom].populatePiece(grid.player2);
+                }
+
                 grid.isP1Turn = (!grid.isP1Turn);
-//                grid.checkIsWinnerUp(player, i, j);
+//                grid.checkIsWinnerDown(grid.ConnectFourGrid[i][bottom].player, i, bottom);
+                grid.checkBoard();
             }
-
         });
-
-
     }
+
     public void populatePiece( Player player ){
         if (isEmpty) {
             this.player = player;

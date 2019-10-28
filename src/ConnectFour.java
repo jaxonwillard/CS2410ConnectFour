@@ -1,5 +1,7 @@
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -15,10 +17,13 @@ public class ConnectFour extends Application {
         primaryStage.setHeight(stageWidth);
         primaryStage.setTitle("Connect Four");
         Pane pane = new Pane();
-        connectFourGrid grid = new connectFourGrid(circleRadius, stageWidth, stageWidth);
+
+
+
+        ConnectFourGrid grid = new ConnectFourGrid(pane, circleRadius, stageWidth, stageWidth);
         for ( int i=0; i < 7; i++ ){
             for ( int j=0; j < 6; j++ ){
-                pane.getChildren().add(grid.connectFourGrid[i][j].circle);
+                pane.getChildren().add(grid.ConnectFourGrid[i][j].circle);
             }
         }
 
