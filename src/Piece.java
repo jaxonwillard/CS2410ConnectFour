@@ -23,7 +23,6 @@ public class Piece {
 
         circle.setOnMouseClicked(e -> {
             if (isEmpty && !grid.gameOver) {
-                System.out.println("i: " + i);
                 int bottom = grid.putToBottom(i, j);
                 if (grid.isP1Turn) {
                     grid.ConnectFourGrid[i][bottom].player = grid.player1;

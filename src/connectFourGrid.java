@@ -85,7 +85,6 @@ public class ConnectFourGrid {
                         ConnectFourGrid[i][j-2].player.playerNum == ConnectFourGrid[i][j].player.playerNum &&
                         ConnectFourGrid[i][j-3].player.playerNum == ConnectFourGrid[i][j].player.playerNum) {
                     Piece[] pieces = new Piece[4];
-                    System.out.println("---------------");
                     for (int k=0; k<4; k++){
                         pieces[k] = ConnectFourGrid[i][j-k];
                     }
