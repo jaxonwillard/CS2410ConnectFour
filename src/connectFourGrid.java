@@ -1,12 +1,7 @@
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class ConnectFourGrid {
@@ -24,7 +19,6 @@ public class ConnectFourGrid {
         this.pane = pane;
         ConnectFourGrid = new Piece[columns][rows];
         for (int i=0; i < columns; i++){
-            System.out.println(i);
             for (int j=0; j < rows; j++){
                 this.ConnectFourGrid[i][j] = new Piece(true, new Player(), radius, (i * stageWidth / columns) + radius ,
                         (j * stageHeight / columns) + radius + 15, i , j, this);
@@ -63,7 +57,7 @@ public class ConnectFourGrid {
 //                        || checkIsWinnerDownRight(i,j) != null ){
 //                    addWinnerNode(i,j);
 //                }
-                if ( checkIsWinnerDownRight(i,j) != null)endGame(checkIsWinnerDownRight(i,j), i, j);
+                if ( checkIsWinnerDownLeft(i,j) != null)endGame(checkIsWinnerDownLeft(i,j), i, j);
                 if ( checkIsWinnerUpLeft(i,j) != null) endGame(checkIsWinnerUpLeft(i,j), i, j );
                 if ( checkIsWinnerUp(i,j) != null) endGame(checkIsWinnerUp(i,j), i, j);
                 if ( checkIsWinnerLeft(i,j) != null) endGame(checkIsWinnerLeft(i,j), i, j);
@@ -93,7 +87,6 @@ public class ConnectFourGrid {
                     Piece[] pieces = new Piece[4];
                     System.out.println("---------------");
                     for (int k=0; k<4; k++){
-                        System.out.println(k);
                         pieces[k] = ConnectFourGrid[i][j-k];
                     }
                     return pieces;
@@ -145,16 +138,16 @@ public class ConnectFourGrid {
         }
         return null;
     }
-    public Piece[] checkIsWinnerDownRight( int i, int j ){
-        if (!ConnectFourGrid[i][j].isEmpty && i + 3 < columns && j + 3 < rows){
-            if ( !ConnectFourGrid[i+1][j+1].isEmpty && !ConnectFourGrid[i+2][j+2].isEmpty &&
-                    !ConnectFourGrid[i+3][j+3].isEmpty &&
-                    ConnectFourGrid[i+1][j+1].player.playerNum == ConnectFourGrid[i][j].player.playerNum &&
-                    ConnectFourGrid[i+2][j+2].player.playerNum == ConnectFourGrid[i][j].player.playerNum &&
-                    ConnectFourGrid[i+3][j+3].player.playerNum == ConnectFourGrid[i][j].player.playerNum){
+    public Piece[] checkIsWinnerDownLeft( int i, int j ){
+        if (!ConnectFourGrid[i][j].isEmpty && i - 3 >= 0 && j + 3 < rows){
+            if ( !ConnectFourGrid[i-1][j+1].isEmpty && !ConnectFourGrid[i-2][j+2].isEmpty &&
+                    !ConnectFourGrid[i-3][j+3].isEmpty &&
+                    ConnectFourGrid[i-1][j+1].player.playerNum == ConnectFourGrid[i][j].player.playerNum &&
+                    ConnectFourGrid[i-2][j+2].player.playerNum == ConnectFourGrid[i][j].player.playerNum &&
+                    ConnectFourGrid[i-3][j+3].player.playerNum == ConnectFourGrid[i][j].player.playerNum){
                 Piece[] pieces = new Piece[4];
                 for (int k=0; k<4; k++){
-                    pieces[k] = ConnectFourGrid[i+k][j+k];
+                    pieces[k] = ConnectFourGrid[i-k][j+k];
                 }
                 return pieces;
             }
