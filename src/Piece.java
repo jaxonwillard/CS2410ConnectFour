@@ -5,11 +5,15 @@ public class Piece {
     public boolean isEmpty;
     public Player player;
     public Circle circle;
-    private int i;
-    private int j;
+    public int i;
+    public int j;
+    public int xCoord;
+    public int yCoord;
     ConnectFourGrid grid;
 
     public Piece(boolean isEmpty, Player player, int radius, int xCoord, int yCoord, int i, int j, ConnectFourGrid grid) {
+        this.xCoord = xCoord;
+        this.yCoord = yCoord;
         this.grid = grid;
         this.i = i;
         this.j = j;

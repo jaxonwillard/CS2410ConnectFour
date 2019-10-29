@@ -1,8 +1,12 @@
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
+
+import java.util.Random;
 
 public class ConnectFourGrid {
     public Piece[][] ConnectFourGrid;
@@ -13,6 +17,21 @@ public class ConnectFourGrid {
     public boolean gameOver;
     int rows = 6;
     int columns = 7;
+
+
+    int x = 200;
+    int y = 500;
+    public ImageView iv = new ImageView();
+    public Image im = new Image("https://www.placecage.com/200/500");
+
+    public ImageView iv1 = new ImageView();
+    public Image im1 = new Image("https://www.placecage.com/200/500");
+
+    public ImageView iv2 = new ImageView();
+    public Image im2 = new Image("https://www.placecage.com/200/500");
+
+    public ImageView iv3 = new ImageView();
+    public Image im3 = new Image("https://www.placecage.com/200/500");
 
     public ConnectFourGrid(Pane pane, int radius, int stageWidth, int stageHeight){
         this.gameOver = false;
@@ -25,7 +44,6 @@ public class ConnectFourGrid {
             }
         }
     }
-
     public int putToBottom(int i, int j){
         if (j < rows - 1){
             if (ConnectFourGrid[i][j+1].isEmpty)
@@ -34,20 +52,41 @@ public class ConnectFourGrid {
         return j;
     }
 
-    public void endGame(Piece[] pieces, int i, int j){
+    public void endGame(Piece[] pieces){
+        Timeline t1 = new Timeline(new KeyFrame(Duration.millis(3000), e -> {
+            for(Piece pc : pieces) {
+                im = new Image("https://www.placecage.com/" + x  + "/" +  y);
+//                im = new Image("https://www.placecage.com/200/500");
+                iv = new ImageView(im);
+                iv.setX(pc.xCoord - 30);
+                iv.setY(pc.yCoord - 30);
+                iv.setFitHeight(60);
+                iv.setFitWidth(60);
+                pane.getChildren().add(iv);
+
+                x = x + new Random().nextInt(300);
+                y = y + new Random().nextInt(300);
 
 
+            }
+
+        }));
+
+        t1.setCycleCount(1000);
+        t1.play();
+
+//        flashPieces(pieces);
+        this.gameOver = true;
+    }
+
+    public void flashPieces(Piece[] pieces){
         Timeline t1 = new Timeline(new KeyFrame(Duration.millis(750), e -> {
-
             Color color = Color.rgb((int)(Math.random()*255),(int)(Math.random()*255),(int)(Math.random()*255));
             for (Piece pc : pieces){
                 pc.circle.setFill(color);
-            }
-        }));
-        t1.setCycleCount(10000);
+            }}));
+        t1.setCycleCount(-1);
         t1.play();
-        this.gameOver = true;
-
     }
 
     public void checkBoard(){
@@ -57,10 +96,10 @@ public class ConnectFourGrid {
 //                        || checkIsWinnerDownRight(i,j) != null ){
 //                    addWinnerNode(i,j);
 //                }
-                if ( checkIsWinnerDownLeft(i,j) != null)endGame(checkIsWinnerDownLeft(i,j), i, j);
-                if ( checkIsWinnerUpLeft(i,j) != null) endGame(checkIsWinnerUpLeft(i,j), i, j );
-                if ( checkIsWinnerUp(i,j) != null) endGame(checkIsWinnerUp(i,j), i, j);
-                if ( checkIsWinnerLeft(i,j) != null) endGame(checkIsWinnerLeft(i,j), i, j);
+                if ( checkIsWinnerDownLeft(i,j) != null)endGame(checkIsWinnerDownLeft(i,j));
+                if ( checkIsWinnerUpLeft(i,j) != null) endGame(checkIsWinnerUpLeft(i,j));
+                if ( checkIsWinnerUp(i,j) != null) endGame(checkIsWinnerUp(i,j));
+                if ( checkIsWinnerLeft(i,j) != null) endGame(checkIsWinnerLeft(i,j));
             }
         }
     }
