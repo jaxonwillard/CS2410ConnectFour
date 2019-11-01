@@ -62,13 +62,13 @@ public class ConnectFourGrid {
                 iv.setY(pc.yCoord - 30);
                 iv.setFitHeight(60);
                 iv.setFitWidth(60);
-                pane.getChildren().add(iv);
+                pane.getChildren().add(iv);}
 
                 x = x + new Random().nextInt(300);
                 y = y + new Random().nextInt(300);
 
 
-            }
+
 
         }));
 
